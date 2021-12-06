@@ -14,9 +14,15 @@ import Tienda from './pages/Tienda/Tienda';
 import Login from './pages/Login/Login';
 import Registro from './pages/Registro/Registro';
 import Perfil from './pages/Perfil/Perfil';
+import AddProducts from './pages/Products/addProducts';
+import Cart from "./pages/Buy/Cart"
+import OneProduct from "./pages/Buy/OneProduct"
+import CheckOut from "./pages/Buy/Checkout"
+import ListProducts from "./pages/Products/productsList"
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 
 export default function App() {
@@ -42,19 +48,9 @@ export default function App() {
 }
 
 function Tabs() {
-  const navigation = useNavigation();
-
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Login");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  };
+  
   return(
+
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
@@ -72,15 +68,30 @@ function Tabs() {
       tabBarActiveTintColor: "#5F366E",
       tabBarInactiveTintColor: "gray",
     })}>
-      <Tab.Screen name="Tienda" component={Tienda} options={{
-        headerRight: () => (
-          <TouchableOpacity style={{backgroundColor: "red"}} onPress={handleSignOut}>
-              <Ionicons name={'ios-log-out'} size= {20} color= {'white'} />
-          </TouchableOpacity>
-        )
-      }} />
-      <Tab.Screen name="Perfil" component={Perfil}  />
+      <Tab.Screen name="Tienda" component={BuySettings} />
+      <Tab.Screen name="Perfil" component={PerfilSettings} options={{ headerShown: false }}/>
     </Tab.Navigator>
   );
+}
+
+function PerfilSettings() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Perfil' component={Perfil}  />
+      <Stack.Screen name='Add' component={AddProducts} />
+      <Stack.Screen name='List' component={ListProducts} />
+    </Stack.Navigator>
+  )
+}
+
+function BuySettings(){
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Tienda' component={Tienda}  options={{ headerShown: false }}/>
+      <Stack.Screen name='OneProduct' component={OneProduct} />
+      <Stack.Screen name='Cart' component={Cart} />
+      <Stack.Screen name='CheckOut' component={CheckOut} />
+    </Stack.Navigator>
+  )
 }
 
