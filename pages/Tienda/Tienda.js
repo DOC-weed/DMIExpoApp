@@ -11,26 +11,37 @@ import { StyledViewBanner, StyledViewStore,StyledViewStoreProducts,StyledViewSto
 export default function Tienda({ navigation }) {
   const [open, setOpen] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
-  const [productsList, setproduct] =useState({});
+  const [productsList, setproduct] =useState([]);
+  const [productsList2, setproduct2] =useState([]);
   useEffect(() => {
     getProducts();
     getUser();
+    maps();
+
   }, [])
   const getProducts= async()=>{
     await db.ref().child('products').get().then(function(res){
       console.log('child_added');
       let json = res.val();
-      let key;
-      for (var field in json) {
-        key = field;
-        break;
-    }
-    setproduct(json[key]);
-    console.log(json[key]);
+      let arr =[];
+      console.log('arrJson',Object.keys(json));
+      Object.values(json).map(function(data,IdIndex){
+        arr[IdIndex]=data
+      Object.values(data).map(function(datos,IndexInterno){
+        console.log('map 2/key',datos)
+
+      })
+
+    })
+    setproduct(arr)
+      //console.log('esto',json);
+      //setproduct(json);
+
       
     }).catch((err)=>{
       console.log(err);
     })
+    maps();
   }
   const getUser=()=>{
     auth.onAuthStateChanged((user) => {
@@ -41,6 +52,23 @@ export default function Tienda({ navigation }) {
       }
     });
   }
+  const maps=()=>{
+    let container=[];
+    productsList.map((data,index)=>{
+      console.log(data,index)
+      if(Object.keys(data).length>1){
+        Object.values(data).map((datos,index2)=>{
+          console.log(datos,index2);
+          container.push(datos)
+        })
+      }
+      container.push(data)
+      console.log(Object.keys(data).length);
+    })
+    console.log(container);
+    setproduct2(container)
+  }
+  
 
   return (
     <StyledViewStore>
@@ -56,10 +84,10 @@ export default function Tienda({ navigation }) {
        scrollEventThrottle={200}
        pagingEnabled={true}
 >
-        {Object.values(productsList).map((data,index)=>
+        {productsList2.map((data,index)=>
         <StyledViewStoreProductsCard key={index}>
         <Image style={{width:'100%'}} source={data.image}/>
-        {console.log(data.image)}
+
           <StyledImageProduct source={{uri:data.image}}/>
           <StyledTextStore onPress={() => navigation.navigate('Detalles',{
             name:data.name,
