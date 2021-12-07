@@ -16,6 +16,7 @@ import Cart from "./pages/Buy/Cart"
 import OneProduct from "./pages/Buy/OneProduct"
 import CheckOut from "./pages/Buy/Checkout"
 import ListProducts from "./pages/Products/productsList"
+import EditProducts from './pages/Products/editProduct';
 
 
 const Tab = createBottomTabNavigator();
@@ -51,7 +52,16 @@ function PerfilSettings() {
     <Stack.Navigator>
       <Stack.Screen name='Perfil' component={Perfil}  />
       <Stack.Screen name='Add' component={AddProducts} />
-      <Stack.Screen name='List' component={ListProducts} />
+      <Stack.Screen name='List' component={EditProductSettings} />
+    </Stack.Navigator>
+  )
+}
+
+function EditProductSettings(){
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='List' component={ListProducts} options={{ headerShown: false }}/>
+      <Stack.Screen name='Edit' component={EditProducts} />
     </Stack.Navigator>
   )
 }

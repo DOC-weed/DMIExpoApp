@@ -150,3 +150,13 @@ export const StyledButtonCancel = styled.TouchableOpacity`
     width: 100px;
     margin: auto;
 `;
+
+export const StyledListItem = styled.View`
+    border: 1px solid black;
+    flex-direction: row;
+`;
+
+export const StyledTestListItem = styled.Text`
+    font-size: 20px;
+    margin: auto;
+`;

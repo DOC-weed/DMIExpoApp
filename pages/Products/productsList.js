@@ -1,38 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { StyledListItem, StyledTestListItem } from "../../styles/styledComponents";
 import { db } from "../../firebase";
 
-export default function ListProducts() {
+export default function ListProducts({ navigation }) {
     const [produts, setProducts] = React.useState({});
     const [user, setUser] = useState('00000000001');
 
-    useEffect(()=> {
+    useEffect(() => {
         __getProducts();
     }, [])
 
     const __getProducts = () => {
         db.ref(user + "/products").get().then((res) => {
-            console.log(res);
             let objItem = res.val();
-            console.log(objItem);
             if (objItem === null) {
-              setProducts({});
+                setProducts({});
             } else {
-              setProducts(objItem);
+                setProducts(objItem);
             }
-          }).catch((err) => {
+        }).catch((err) => {
             console.log(err);
-      
-          });
+
+        });
+    }
+
+    const __edit = (code) => {
+        navigation.navigate('Edit', { product: code })
     }
 
     return (
         <View>
             <Text>Products list</Text>
-            <ScrollView style={{ width: '100%', height: '500px'}}>
+            <ScrollView style={{ width: '100%', height: '500px' }}>
                 {
-                    Object.values(produts).map((i, index) => 
-                        <Text key={index}>{i.name}</Text>
+                    Object.values(produts).map((i, index) =>
+                        <StyledListItem key={index}>
+                            <StyledTestListItem >{i.code}</StyledTestListItem>
+                            <StyledTestListItem >{i.name}</StyledTestListItem>
+                            <TouchableOpacity onPress={() => __edit(i.code)}><Text>Editar</Text></TouchableOpacity>
+                            <TouchableOpacity><Text>Eliminar</Text></TouchableOpacity>
+                        </StyledListItem>
                     )
                 }
             </ScrollView>

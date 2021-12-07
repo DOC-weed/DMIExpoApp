@@ -45,7 +45,6 @@ export default function Perfil({ navigation }) {
 
   const __getProfilePhoto = async () => {
     await storage.ref(user + "/profile").getDownloadURL().then(profile => {
-      console.log(profile)
       setPhoto(profile);
       setCapturedImage(null);
     }).catch(e => {
