@@ -6,7 +6,7 @@ import CameraComponent from "../../components/camera";
 import { useIsFocused } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { storage, db } from "../../firebase"
+import { storage, db, auth } from "../../firebase";
 
 export default function EditProducts({ route, navigation }) {
     const [startCamera, setStartCamera] = useState(false);
@@ -54,7 +54,7 @@ export default function EditProducts({ route, navigation }) {
                 setDescription(i.description);
                 setPrice(i.price);
                 setStock(i.stock);
-                setPhoto(i.image)
+                setPhoto(i.image);
             }
         }).catch((err) => {
             console.log(err);

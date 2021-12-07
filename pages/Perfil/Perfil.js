@@ -6,7 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 import { StyledContainerImage, StyledImage, StyledViewContainer, StyledButtonBack, StyledTextButton, StyledContainerCamera, StyledTitleText } from "../../styles/styledComponents";
 import { SpeedDial } from 'react-native-elements';
 import CameraComponent from "../../components/camera";
-import { storage } from "../../firebase"
+import { storage, auth } from "../../firebase"
 import { useNavigation } from "@react-navigation/core";
 
 
@@ -25,12 +25,26 @@ export default function Perfil({ navigation }) {
   const [open, setOpen] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
 
-  const [user, setUser] = useState('00000000001');
+  const user = auth.currentUser.uid;
 
 
   useEffect(() => {
     __getProfilePhoto();
   }, [isFocused])
+
+  const GetUserData = () => {
+    db.ref(user + "/products").get().then((res) => {
+      let objItem = res.val();
+      if (objItem === null) {
+          setProducts({});
+      } else {
+          setProducts(objItem);
+      }
+  }).catch((err) => {
+      console.log(err);
+
+  });
+  }
 
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
