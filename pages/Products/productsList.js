@@ -11,7 +11,7 @@ export default function ListProducts({ navigation }) {
 
     useEffect(() => {
         __getProducts();
-      }, [isFocused])
+    }, [isFocused])
 
     useEffect(() => {
         __getProducts();
@@ -19,7 +19,7 @@ export default function ListProducts({ navigation }) {
 
     const __getProducts = () => {
 
-        db.ref('products/'+user ).get().then((res) => {
+        db.ref('products/' + user).get().then((res) => {
             console.log(res);
             let objItem = res.val();
             if (objItem === null) {
@@ -27,6 +27,20 @@ export default function ListProducts({ navigation }) {
             } else {
                 setProducts(objItem);
             }
+        }).catch((err) => {
+            console.log(err);
+
+        });
+    }
+
+    const __produtoDelete = (code) => {
+        db.ref("products/" + user).child(code).remove().then(async (res) => {
+            db.ref('productsgeneral/').child(code).remove().then((res) => {
+                alert("Product deleted");
+                __getProducts();
+            }).catch(err => {
+                console.log(err)
+            })
         }).catch((err) => {
             console.log(err);
 
@@ -47,7 +61,7 @@ export default function ListProducts({ navigation }) {
                             <StyledTestListItem >{i.code}</StyledTestListItem>
                             <StyledTestListItem >{i.name}</StyledTestListItem>
                             <TouchableOpacity onPress={() => __edit(i.code)}><Text>Editar</Text></TouchableOpacity>
-                            <TouchableOpacity><Text>Eliminar</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => __produtoDelete(i.code)}><Text>Eliminar</Text></TouchableOpacity>
                         </StyledListItem>
                     )
                 }

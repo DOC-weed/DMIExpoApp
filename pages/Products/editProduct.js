@@ -98,9 +98,13 @@ export default function EditProducts({ route, navigation }) {
             const blob = await response.blob();
             await storage.ref("products/" + user).child(code).put(blob).then(async res => {
                 await storage.ref("products" + user).child(code).getDownloadURL().then(async profile => {
-                    db.ref("products/" + user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
-                        alert('saved');
-                        __clear();
+                    await db.ref("products/" + user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then(async (res) => {
+                        await db.ref('productsgeneral/').child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
+                            alert('saved');
+                            __clear();
+                        }).catch(err => {
+                            console.log(err)
+                        })
                     }).catch(err => {
                         console.log(err)
                     })
@@ -113,9 +117,13 @@ export default function EditProducts({ route, navigation }) {
                 setOpen(false)
             });
         } else {
-            db.ref("products/" + user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: photo }).then((res) => {
-                alert('saved');
-                __clear();
+            db.ref("products/" + user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: photo }).then(async (res) => {
+                await db.ref('productsgeneral/').child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
+                    alert('saved');
+                    __clear();
+                }).catch(err => {
+                    console.log(err)
+                })
             }).catch(err => {
                 console.log(err)
             })
