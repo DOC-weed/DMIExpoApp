@@ -40,7 +40,7 @@ export default function ListProducts({ navigation }) {
     return (
         <View>
             <Text>Products list</Text>
-            <ScrollView style={{ width: '100%', height: '500px' }}>
+            <ScrollView>
                 {
                     Object.values(produts).map((i, index) =>
                         <StyledListItem key={index}>
