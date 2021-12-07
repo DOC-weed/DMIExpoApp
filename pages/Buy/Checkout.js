@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import { View, TextInput, Button, Alert } from 'react-native';
 import { Text } from 'react-native';
 import { db } from '../../firebase';
+import ReactDOM from "react-dom"
+import { requestOneTimePayment } from 'react-native-paypal';
 
 export default function Checkot({route, navigation}){
 
@@ -16,8 +18,11 @@ export default function Checkot({route, navigation}){
         }).catch(err=>{console.log(err)})
     }
     const pagar=async()=>{
-      navigation.navigate('Orders')
+      //navigation.navigate('Orders')
+    
+    
     }
+
 
 
     return(

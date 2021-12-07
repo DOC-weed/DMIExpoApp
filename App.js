@@ -62,8 +62,11 @@ function Tabs() {
     setshow(true);
 
   }
-  const closeMenu =()=>{
-    setshow(false)
+  const moveToCart =()=>{
+    navigation.replace("Cart");
+  }
+  const moveToOrders=()=>{
+    navigation.replace("Orders");
   }
   const handleSignOut = () => {
     auth
@@ -95,35 +98,35 @@ function Tabs() {
       tabBarInactiveTintColor: "gray",
     })}>
       <Tab.Screen name="Tienda" component={BuySettings}  options={{
-        headerLeft: () => (
-          <TouchableOpacity>
-             {(show)? <Ionicons onPress={closeMenu} name={'menu-outline'} size= {40} color= {'black'} />:
-             <StyledViewIMenu>
-                <StyledButtonMenu onPress={()=>{ navigation.navigate("Login")}} >Login</StyledButtonMenu>
-                <StyledButtonMenu >Registrate</StyledButtonMenu>
-                <StyledButtonMenu >Carrito</StyledButtonMenu>
-                <StyledButtonMenu >Ordenes</StyledButtonMenu>
-                <StyledButtonMenu onPress={handleSignOut}>Salir</StyledButtonMenu>
-              </StyledViewIMenu>}
-              </TouchableOpacity>
-          
-        ),
-        headerRight: ()=>(
-          <TouchableOpacity>
-            {(!show)?<Text style={{fontSize:50,marginRight:20}} onPress={()=>{setshow(true)}} >&times;</Text>:null}
+        headerRight: () => (
+          <TouchableOpacity style={{display:'flex',flexDirection:'row'}}>
+            <TouchableOpacity>
+             <Ionicons onPress={moveToCart} name={'cart'} size= {40} color= {'black'} />
             </TouchableOpacity>
+            <TouchableOpacity>
+             <Ionicons onPress={moveToOrders} name={'document-text'} size= {40} color= {'black'} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+             <Ionicons onPress={handleSignOut} name={'log-out'} size= {40} color= {'red'} />
+            </TouchableOpacity>
+          </TouchableOpacity>
+          
         )
       }}/>
-      <Tab.Screen name="Perfil" component={PerfilSettings} options={{ headerShown: true, headerLeft: () => (
-          <TouchableOpacity >
-             {(show)? <Ionicons onPress={handleSignOut} name={'menu-outline'} size= {40} color= {'black'} />:<Menu />}
-              
-          </TouchableOpacity>
-        ),
-        headerRight: ()=>(
-          <TouchableOpacity>
-            {(!show)?<Text style={{fontSize:50,marginRight:20}} onPress={()=>{setshow(true)}} >&times;</Text>:null}
+      <Tab.Screen name="Perfil" component={PerfilSettings} options={{ headerShown: true, 
+        headerRight: () => (
+          <TouchableOpacity style={{display:'flex',flexDirection:'row'}}>
+            <TouchableOpacity>
+             <Ionicons onPress={moveToCart} name={'cart'} size= {40} color= {'black'} />
             </TouchableOpacity>
+            <TouchableOpacity>
+             <Ionicons onPress={moveToOrders} name={'document-text'} size= {40} color= {'black'} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+             <Ionicons onPress={handleSignOut} name={'log-out'} size= {40} color= {'red'} />
+            </TouchableOpacity>
+          </TouchableOpacity>
+          
         ) }}/>
     </Tab.Navigator>
   );
