@@ -11,7 +11,7 @@ export default function ListProducts() {
     }, [])
 
     const __getProducts = () => {
-        db.ref(user + "/products").get().then((res) => {
+        db.ref('products/'+user ).get().then((res) => {
             console.log(res);
             let objItem = res.val();
             console.log(objItem);
