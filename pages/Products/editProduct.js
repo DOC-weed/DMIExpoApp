@@ -97,7 +97,7 @@ export default function EditProducts({ route, navigation }) {
             const response = await fetch(capturedImage.uri)
             const blob = await response.blob();
             await storage.ref("products/" + user).child(code).put(blob).then(async res => {
-                await storage.ref("products" + user).child(code).getDownloadURL().then(async profile => {
+                await storage.ref("products/" + user).child(code).getDownloadURL().then(async profile => {
                     await db.ref("products/" + user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then(async (res) => {
                         await db.ref('productsgeneral/').child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
                             alert('saved');
