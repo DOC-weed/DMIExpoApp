@@ -1,9 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { auth } from './firebase';
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { TouchableOpacity, Text } from 'react-native';
 
@@ -18,12 +21,37 @@ import CheckOut from "./pages/Buy/Checkout"
 import ListProducts from "./pages/Products/productsList"
 import EditProducts from './pages/Products/editProduct';
 
-
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function Tabs() {
+
+
+export default function App() {
+
   return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" options={{ headerShown: false }}>
+          {(props) => <Login {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Singup" options={{ headerShown: false }}>
+          {(props) => <Registro {...props} />}
+        </Stack.Screen>
+
+        <Stack.Screen
+          name= 'Tabs'
+          options={{ headerShown: false }}
+          component={Tabs}
+          />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function Tabs() {
+  
+  return(
+
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
@@ -76,20 +104,4 @@ function BuySettings(){
     </Stack.Navigator>
   )
 }
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Tabs">
-        <Stack.Screen
-          name='Tabs'
-          options={{ headerShown: false }}
-          component={Tabs}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-
-  );
-}
-
 
