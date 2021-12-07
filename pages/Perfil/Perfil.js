@@ -170,10 +170,10 @@ export default function Perfil({ navigation }) {
             {
               Object.values([userData]).map((i, index) =>
                 <View key={index} style={{ margin: 'auto' }}>
-                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Name: {i.name}</Text>
-                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Country: {i.country}</Text>
-                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Phone: {i.phone}</Text>
-                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Email: {i.email}</Text>
+                  <Text style={{ textAlign: 'center', fontSize:20  }}>Name: {i.name}</Text>
+                  <Text style={{ textAlign: 'center', fontSize: 20}}>Country: {i.country}</Text>
+                  <Text style={{ textAlign: 'center', fontSize:20 }}>Phone: {i.phone}</Text>
+                  <Text style={{ textAlign: 'center', fontSize:20  }}>Email: {i.email}</Text>
                 </View>
               )
             }
