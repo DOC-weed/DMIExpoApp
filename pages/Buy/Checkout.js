@@ -3,7 +3,7 @@ import { View, TextInput, Button, Alert } from 'react-native';
 import { Text } from 'react-native';
 import { db } from '../../firebase';
 import ReactDOM from "react-dom"
-import { requestOneTimePayment } from 'react-native-paypal';
+
 
 export default function Checkot({route, navigation}){
 
@@ -17,7 +17,7 @@ export default function Checkot({route, navigation}){
             setUser(res.val());
         }).catch(err=>{console.log(err)})
     }
-    const pagar=async()=>{
+    const pagar=()=>{
       //navigation.navigate('Orders')
     
     
