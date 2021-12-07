@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import { Image, SpeedDial } from 'react-native-elements';
 import { auth, db } from '../../firebase';
 
+
 import { StyledImageBanner,StyledImageProduct } from '../../StyledComponents/Images/images';
 import { StyledTextStore } from '../../StyledComponents/Text/text';
 import { StyledViewBanner, StyledViewStore,StyledViewStoreProducts,StyledViewStoreProductsCard } from '../../StyledComponents/Views/view';
@@ -73,34 +74,6 @@ export default function Tienda({ navigation }) {
         ) }
 
       </StyledViewStoreProducts>
-
-
-
-
-<SpeedDial
-      isOpen={openAdd}
-      icon={{ name: 'menu', color: '#fff' }}
-      openIcon={{ name: 'close', color: '#fff' }}
-      onOpen={() => setOpenAdd(!openAdd)}
-      overlayColor={"none"}
-      onClose={() => setOpenAdd(!openAdd)}
-    >
-      <SpeedDial.Action
-        icon={{ name: 'add', color: '#fff' }}
-        title="Check"
-        onPress={() => navigation.navigate('CheckOut',)}
-      />
-      <SpeedDial.Action
-        icon={{ name: 'add', color: '#fff' }}
-        title="OneProduct"
-        onPress={() => navigation.navigate('OneProduct')}
-      />
-      <SpeedDial.Action
-        icon={{ name: 'add', color: '#fff' }}
-        title="Cart"
-        onPress={() => navigation.navigate('Cart')}
-      />
-    </SpeedDial>
     </StyledViewStore>
     
 

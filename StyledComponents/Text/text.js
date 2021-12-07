@@ -15,6 +15,7 @@ export const StyledTextButtonColor = styled.Text`
 export const StyledButtonMenu = styled.Text`
     color: white;
     font-size:40px;
+
 `;
 export const StyledTextStore = styled.Text`
     color: black;

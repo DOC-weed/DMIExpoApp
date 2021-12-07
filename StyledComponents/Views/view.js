@@ -22,9 +22,9 @@ export const StyledViewIMenu= styled.View`
    background-color:#111;
    top:0;
    left:0;
-   z-index:1;
+   z-index:999999;
    position: absolute;
-   overflow:hidden;
+
    padding-top:50px;
 `;
 export const StyledViewStore = styled.View`

@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 
 import Tienda from './pages/Tienda/Tienda';
 import Login from './pages/Login/Login';
@@ -23,7 +23,8 @@ import ListProducts from "./pages/Products/productsList";
 import { SpeedDial } from 'react-native-elements';
 import Menu from './components/menu';
 import Order from './pages/Buy/Order';
-
+import { StyledButtonMenu } from './StyledComponents/Text/text';
+import { StyledViewIMenu } from './StyledComponents/Views/view';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -61,16 +62,18 @@ function Tabs() {
     setshow(true);
 
   }
-  const handleSignOut = () => {
+  const closeMenu =()=>{
     setshow(false)
-    /*auth
+  }
+  const handleSignOut = () => {
+    auth
       .signOut()
       .then(() => {
         navigation.replace("Login");
       })
       .catch((error) => {
         alert(error.message);
-      });*/
+      });
   };
   return(
 
@@ -93,10 +96,17 @@ function Tabs() {
     })}>
       <Tab.Screen name="Tienda" component={BuySettings}  options={{
         headerLeft: () => (
-          <TouchableOpacity >
-             {(show)? <Ionicons onPress={handleSignOut} name={'menu-outline'} size= {40} color= {'black'} />:<Menu closeB={closeBTN}/>}
-              
-          </TouchableOpacity>
+          <TouchableOpacity>
+             {(show)? <Ionicons onPress={closeMenu} name={'menu-outline'} size= {40} color= {'black'} />:
+             <StyledViewIMenu>
+                <StyledButtonMenu onPress={()=>{ navigation.navigate("Login")}} >Login</StyledButtonMenu>
+                <StyledButtonMenu >Registrate</StyledButtonMenu>
+                <StyledButtonMenu >Carrito</StyledButtonMenu>
+                <StyledButtonMenu >Ordenes</StyledButtonMenu>
+                <StyledButtonMenu onPress={handleSignOut}>Salir</StyledButtonMenu>
+              </StyledViewIMenu>}
+              </TouchableOpacity>
+          
         ),
         headerRight: ()=>(
           <TouchableOpacity>
@@ -104,7 +114,17 @@ function Tabs() {
             </TouchableOpacity>
         )
       }}/>
-      <Tab.Screen name="Perfil" component={PerfilSettings} options={{ headerShown: false }}/>
+      <Tab.Screen name="Perfil" component={PerfilSettings} options={{ headerShown: true, headerLeft: () => (
+          <TouchableOpacity >
+             {(show)? <Ionicons onPress={handleSignOut} name={'menu-outline'} size= {40} color= {'black'} />:<Menu />}
+              
+          </TouchableOpacity>
+        ),
+        headerRight: ()=>(
+          <TouchableOpacity>
+            {(!show)?<Text style={{fontSize:50,marginRight:20}} onPress={()=>{setshow(true)}} >&times;</Text>:null}
+            </TouchableOpacity>
+        ) }}/>
     </Tab.Navigator>
   );
 }
@@ -112,7 +132,7 @@ function Tabs() {
 function PerfilSettings() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Perfil' component={Perfil}  />
+      <Stack.Screen name='Perfil' options={{headerShown:false}} component={Perfil}  />
       <Stack.Screen name='Add' component={AddProducts} />
       <Stack.Screen name='List' component={EditProductSettings} />
     </Stack.Navigator>
