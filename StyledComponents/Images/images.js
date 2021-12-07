@@ -7,3 +7,24 @@ export const StyledImageLogo = styled.Image`
     border-radius:  90px;
     margin-bottom: 30px;   
 `;
+export const StyledImageBanner= styled.Image`
+    width: 100%;
+    height: 100px;
+    padding:5px;
+`;
+export const StyledImageProduct= styled.Image`
+    width: 250px;
+    height: 250px;
+    padding:5px;
+    margin:auto;
+`;
+export const StyledImageProduct2= styled.Image`
+    width: 250px;
+    height: 250px;
+    padding:5px;
+`;
+export const StyledImagesingleProduct= styled.Image`
+    width: 100px;
+    height: 100px;
+    padding:5px;
+`;

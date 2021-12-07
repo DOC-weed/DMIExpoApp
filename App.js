@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { auth } from './firebase';
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,8 +18,12 @@ import AddProducts from './pages/Products/addProducts';
 import Cart from "./pages/Buy/Cart"
 import OneProduct from "./pages/Buy/OneProduct"
 import CheckOut from "./pages/Buy/Checkout"
-import ListProducts from "./pages/Products/productsList"
 import EditProducts from './pages/Products/editProduct';
+import ListProducts from "./pages/Products/productsList";
+import { SpeedDial } from 'react-native-elements';
+import Menu from './components/menu';
+import Order from './pages/Buy/Order';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,6 +31,7 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
+  
 
   return (
     <NavigationContainer>
@@ -49,7 +54,24 @@ export default function App() {
 }
 
 function Tabs() {
-  
+  const navigation = useNavigation();
+  const [show, setshow] = useState(true);
+  const [hide, sethide] = useState(false);
+  const closeBTN =()=>{
+    setshow(true);
+
+  }
+  const handleSignOut = () => {
+    setshow(false)
+    /*auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });*/
+  };
   return(
 
     <Tab.Navigator screenOptions={({ route }) => ({
@@ -69,7 +91,19 @@ function Tabs() {
       tabBarActiveTintColor: "#5F366E",
       tabBarInactiveTintColor: "gray",
     })}>
-      <Tab.Screen name="Tienda" component={BuySettings} />
+      <Tab.Screen name="Tienda" component={BuySettings}  options={{
+        headerLeft: () => (
+          <TouchableOpacity >
+             {(show)? <Ionicons onPress={handleSignOut} name={'menu-outline'} size= {40} color= {'black'} />:<Menu closeB={closeBTN}/>}
+              
+          </TouchableOpacity>
+        ),
+        headerRight: ()=>(
+          <TouchableOpacity>
+            {(!show)?<Text style={{fontSize:50,marginRight:20}} onPress={()=>{setshow(true)}} >&times;</Text>:null}
+            </TouchableOpacity>
+        )
+      }}/>
       <Tab.Screen name="Perfil" component={PerfilSettings} options={{ headerShown: false }}/>
     </Tab.Navigator>
   );
@@ -98,9 +132,10 @@ function BuySettings(){
   return (
     <Stack.Navigator>
       <Stack.Screen name='Tienda' component={Tienda}  options={{ headerShown: false }}/>
-      <Stack.Screen name='OneProduct' component={OneProduct} />
+      <Stack.Screen name='Detalles' component={OneProduct} />
       <Stack.Screen name='Cart' component={Cart} />
       <Stack.Screen name='CheckOut' component={CheckOut} />
+      <Stack.Screen name='Orders' component={Order} />
     </Stack.Navigator>
   )
 }

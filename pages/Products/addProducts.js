@@ -78,9 +78,9 @@ export default function AddProducts() {
         if (capturedImage != null) {
             const response = await fetch(capturedImage.uri)
             const blob = await response.blob();
-            await storage.ref(user + "/products").child(code).put(blob).then(async res => {
-                await storage.ref(user + "/products").child(code).getDownloadURL().then(async profile => {
-                    db.ref(user + "/products").child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
+            await storage.ref('products/'+user ).child(code).put(blob).then(async res => {
+                await storage.ref('products/'+user ).child(code).getDownloadURL().then(async profile => {
+                    db.ref('products/'+user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
                         alert('saved');
                         __clear();
                     }).catch(err => {
@@ -95,7 +95,7 @@ export default function AddProducts() {
                 setOpen(false)
             });
         } else {
-            db.ref(user + "/products").child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: photo }).then((res) => {
+            db.ref( "products/"+user ).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: photo }).then((res) => {
                 alert('saved');
                 __clear();
             }).catch(err => {

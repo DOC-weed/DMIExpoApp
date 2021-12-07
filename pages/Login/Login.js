@@ -30,7 +30,7 @@ export default function Login() {
       .then((userCredentials) => {
         // then is a fullfilled promise
         const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
+        console.log("Logged in with:", user);
       })
       .catch((error) => {
         // catch is a rejected promise
