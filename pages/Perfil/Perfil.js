@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { useIsFocused } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { StyledContainerImage, StyledImage, StyledViewContainer, StyledButtonBack, StyledTextButton, StyledContainerCamera, StyledTitleText } from "../../styles/styledComponents";
 import { SpeedDial } from 'react-native-elements';
 import CameraComponent from "../../components/camera";
-import { storage } from "../../firebase"
+import { storage, auth, db } from "../../firebase"
 import { useNavigation } from "@react-navigation/core";
 
 
@@ -25,12 +25,26 @@ export default function Perfil({ navigation }) {
   const [open, setOpen] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
 
-  const [user, setUser] = useState('00000000001');
+  const user = auth.currentUser.uid;
+
+  const [userData, setUserData] = useState({});
 
 
   useEffect(() => {
     __getProfilePhoto();
+    getUserData();
   }, [isFocused])
+
+  const getUserData = () => {
+    db.ref('user/' + user).get().then((res) => {
+      let objItem = res.val();
+      console.log(objItem)
+      setUserData(objItem);
+    }).catch((err) => {
+      console.log(err);
+
+    });
+  }
 
   const __startCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
@@ -152,6 +166,18 @@ export default function Perfil({ navigation }) {
                   </SpeedDial>
               }
             </StyledContainerImage>
+
+            {
+              Object.values([userData]).map((i, index) =>
+                <View key={index} style={{ margin: 'auto' }}>
+                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Name: {i.name}</Text>
+                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Country: {i.country}</Text>
+                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Phone: {i.phone}</Text>
+                  <Text style={{ textAlign: 'center', fontSize: '20px' }}>Email: {i.email}</Text>
+                </View>
+              )
+            }
+
             <SpeedDial
               isOpen={openAdd}
               icon={{ name: 'menu', color: '#fff' }}

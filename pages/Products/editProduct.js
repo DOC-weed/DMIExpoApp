@@ -6,7 +6,7 @@ import CameraComponent from "../../components/camera";
 import { useIsFocused } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { storage, db } from "../../firebase"
+import { storage, db, auth } from "../../firebase"
 
 export default function EditProducts({ route, navigation }) {
     const [startCamera, setStartCamera] = useState(false);
@@ -18,13 +18,13 @@ export default function EditProducts({ route, navigation }) {
 
     const [open, setOpen] = useState(false);
 
-    const [user, setUser] = useState('00000000001');
-
     const [code, setCode] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [stock, setStock] = useState('');
+
+    const user = auth.currentUser.uid;
 
     const [guardar, setGuardar] = useState(false);
 
@@ -44,11 +44,11 @@ export default function EditProducts({ route, navigation }) {
         }
     }, [capturedImage]);
 
-    const __produtoEdit = ({product}) => {
-        db.ref(user + "/products").child(product).get().then((res) => {
+    const __produtoEdit = ({ product }) => {
+        db.ref("products/" + user).child(product).get().then((res) => {
             let objItem = res.val();
 
-            for(const i of [objItem]){
+            for (const i of [objItem]) {
                 setCode(i.code);
                 setName(i.name);
                 setDescription(i.description);
@@ -96,9 +96,9 @@ export default function EditProducts({ route, navigation }) {
         if (capturedImage != null) {
             const response = await fetch(capturedImage.uri)
             const blob = await response.blob();
-            await storage.ref(user + "/products").child(code).put(blob).then(async res => {
-                await storage.ref(user + "/products").child(code).getDownloadURL().then(async profile => {
-                    db.ref(user + "/products").child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
+            await storage.ref("products/" + user).child(code).put(blob).then(async res => {
+                await storage.ref("products" + user).child(code).getDownloadURL().then(async profile => {
+                    db.ref("products/" + user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: profile }).then((res) => {
                         alert('saved');
                         __clear();
                     }).catch(err => {
@@ -113,7 +113,7 @@ export default function EditProducts({ route, navigation }) {
                 setOpen(false)
             });
         } else {
-            db.ref(user + "/products").child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: photo }).then((res) => {
+            db.ref("products/" + user).child(code).set({ code: code, name: name, description: description, price: price, stock: stock, image: photo }).then((res) => {
                 alert('saved');
                 __clear();
             }).catch(err => {
@@ -199,7 +199,7 @@ export default function EditProducts({ route, navigation }) {
                                 </SpeedDial>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
-                                <StyledButtonCancel onPress={ () => navigation.goBack() }><StyledTextButton>Cancel</StyledTextButton></StyledButtonCancel>
+                                <StyledButtonCancel onPress={() => navigation.goBack()}><StyledTextButton>Cancel</StyledTextButton></StyledButtonCancel>
                                 <StyledButtonSave onPress={__saveData}><StyledTextButton>Save</StyledTextButton></StyledButtonSave>
                             </View>
                         </ScrollView>

@@ -6,7 +6,7 @@ import CameraComponent from "../../components/camera";
 import { useIsFocused } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { storage, db } from "../../firebase"
+import { storage, db, auth } from "../../firebase"
 
 export default function AddProducts() {
     const [startCamera, setStartCamera] = useState(false);
@@ -18,7 +18,7 @@ export default function AddProducts() {
 
     const [open, setOpen] = useState(false);
 
-    const [user, setUser] = useState('00000000001');
+    const user = auth.currentUser.uid;
 
     const [code, setCode] = useState('');
     const [name, setName] = useState('');

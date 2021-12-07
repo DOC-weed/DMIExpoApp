@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { StyledListItem, StyledTestListItem } from "../../styles/styledComponents";
-import { db } from "../../firebase";
+import { db, auth } from "../../firebase";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ListProducts({ navigation }) {
     const [produts, setProducts] = React.useState({});
-    const [user, setUser] = useState('00000000001');
+    const user = auth.currentUser.uid;
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        __getProducts();
+      }, [isFocused])
 
     useEffect(() => {
         __getProducts();
