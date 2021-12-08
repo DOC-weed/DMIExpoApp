@@ -61,7 +61,7 @@ export default function Checkot({route, navigation}){
             <StyledInput  placeholder="Nombre de tarjeta" value={tarjeta.name} keyboardType=""  onChangeText={settarjeta}/>
             <StyledInput  placeholder="Mes/año" value={tarjeta.expiration}onChangeText={settarjeta}/>
             <StyledInput  placeholder="ccv" value={tarjeta.ccv}  keyboardType="number-pad" onChangeText={settarjeta}/>
-            <Text style={{height: "5%"}}></Text>
+
             <StyledButtons onPress={pagar}>
                 <StyledTextButton>Pagar</StyledTextButton>
             </StyledButtons>
