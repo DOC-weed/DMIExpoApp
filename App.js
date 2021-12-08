@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { auth } from './firebase';
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -32,7 +32,7 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-  
+
 
   return (
     <NavigationContainer>
@@ -45,10 +45,10 @@ export default function App() {
         </Stack.Screen>
 
         <Stack.Screen
-          name= 'Tabs'
+          name='Tabs'
           options={{ headerShown: false }}
           component={Tabs}
-          />
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -58,14 +58,18 @@ function Tabs() {
   const navigation = useNavigation();
   const [show, setshow] = useState(true);
   const [hide, sethide] = useState(false);
-  const closeBTN =()=>{
+  const closeBTN = () => {
     setshow(true);
 
   }
-  const moveToCart =()=>{
+  const moveToHome = () => {
+    navigation.replace("Tienda");
+  }
+
+  const moveToCart = () => {
     navigation.replace("Cart");
   }
-  const moveToOrders=()=>{
+  const moveToOrders = () => {
     navigation.replace("Orders");
   }
   const handleSignOut = () => {
@@ -78,7 +82,7 @@ function Tabs() {
         alert(error.message);
       });
   };
-  return(
+  return (
 
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
@@ -97,37 +101,36 @@ function Tabs() {
       tabBarActiveTintColor: "#5F366E",
       tabBarInactiveTintColor: "gray",
     })}>
-      <Tab.Screen name="Tienda" component={BuySettings}  options={{
+      <Tab.Screen name="Tienda" component={BuySettings} options={{
         headerRight: () => (
-          <TouchableOpacity style={{display:'flex',flexDirection:'row'}}>
+          <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
             <TouchableOpacity>
-             <Ionicons onPress={moveToCart} name={'cart'} size= {40} color= {'black'} />
+              <Ionicons onPress={moveToHome} name={'home'} size={40} color={'black'} />
             </TouchableOpacity>
             <TouchableOpacity>
-             <Ionicons onPress={moveToOrders} name={'document-text'} size= {40} color= {'black'} />
+              <Ionicons onPress={moveToCart} name={'cart'} size={40} color={'black'} />
             </TouchableOpacity>
             <TouchableOpacity>
-             <Ionicons onPress={handleSignOut} name={'log-out'} size= {40} color= {'red'} />
+              <Ionicons onPress={moveToOrders} name={'document-text'} size={40} color={'black'} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons onPress={handleSignOut} name={'log-out'} size={40} color={'red'} />
             </TouchableOpacity>
           </TouchableOpacity>
-          
+
         )
-      }}/>
-      <Tab.Screen name="Perfil" component={PerfilSettings} options={{ headerShown: true, 
+      }} />
+      <Tab.Screen name="Perfil" component={PerfilSettings} options={{
+        headerShown: true,
         headerRight: () => (
-          <TouchableOpacity style={{display:'flex',flexDirection:'row'}}>
+          <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
             <TouchableOpacity>
-             <Ionicons onPress={moveToCart} name={'cart'} size= {40} color= {'black'} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-             <Ionicons onPress={moveToOrders} name={'document-text'} size= {40} color= {'black'} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-             <Ionicons onPress={handleSignOut} name={'log-out'} size= {40} color= {'red'} />
+              <Ionicons onPress={handleSignOut} name={'log-out'} size={40} color={'red'} />
             </TouchableOpacity>
           </TouchableOpacity>
-          
-        ) }}/>
+
+        )
+      }} />
     </Tab.Navigator>
   );
 }
@@ -135,26 +138,26 @@ function Tabs() {
 function PerfilSettings() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Perfil' options={{headerShown:false}} component={Perfil}  />
+      <Stack.Screen name='Perfil' options={{ headerShown: false }} component={Perfil} />
       <Stack.Screen name='Add' component={AddProducts} />
       <Stack.Screen name='List' component={EditProductSettings} />
     </Stack.Navigator>
   )
 }
 
-function EditProductSettings(){
+function EditProductSettings() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='List' component={ListProducts} options={{ headerShown: false }}/>
+      <Stack.Screen name='List' component={ListProducts} options={{ headerShown: false }} />
       <Stack.Screen name='Edit' component={EditProducts} />
     </Stack.Navigator>
   )
 }
 
-function BuySettings(){
+function BuySettings() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Tienda' component={Tienda}  options={{ headerShown: false }}/>
+      <Stack.Screen name='Tienda' component={Tienda} options={{ headerShown: false }} />
       <Stack.Screen name='Detalles' component={OneProduct} />
       <Stack.Screen name='Cart' component={Cart} />
       <Stack.Screen name='CheckOut' component={CheckOut} />
