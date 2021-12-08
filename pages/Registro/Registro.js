@@ -81,6 +81,7 @@ export default function Registro() {
         onChangeText = {(text) => setPwd(text)}
         secureTextEntry
       />
+        <View style={{height: "2%"}}></View>
 
       <StyledButtons onPress ={ handleSinUp}>
         <StyledTextButton>Crear cuenta</StyledTextButton>

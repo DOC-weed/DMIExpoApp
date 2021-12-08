@@ -3,6 +3,10 @@ import { View, TextInput, Button, Alert } from 'react-native';
 import { Text } from 'react-native';
 import { db } from '../../firebase';
 import ReactDOM from "react-dom"
+import { StyledInput } from '../../StyledComponents/Inputs/inputs';
+import { StyledContainerTotal, StyledViewInputs } from '../../StyledComponents/Views/view';
+import { StyledTextButton, StyledTextTitle } from '../../StyledComponents/Text/text';
+import { StyledButtons } from '../../StyledComponents/Buttons/buttons';
 
 
 export default function Checkot({route, navigation}){
@@ -40,32 +44,33 @@ export default function Checkot({route, navigation}){
             }
         }
 
-   
-    
-
-
-
     return(
-        <View>
-            <TextInput editable={false}>{user.addres}</TextInput>
-            <TextInput editable={false}>{user.country}</TextInput>
-            <TextInput editable={false}>{user.email}</TextInput>
-            <TextInput editable={false}>{user.name}</TextInput>
-            <TextInput editable={false}>{user.phone}</TextInput>
-            <Text>Total ${total}</Text>
-            <Text>Método de Pago</Text>
-            <TextInput  placeholder="Numero de tarjeta" value={tarjeta.number} keyboardType="number-pad" onChangeText={settarjeta}></TextInput>
-            <TextInput  placeholder="Nombre de tarjeta" value={tarjeta.name} keyboardType=""  onChangeText={settarjeta}></TextInput>
-            <TextInput  placeholder="Mes/año" value={tarjeta.expiration}onChangeText={settarjeta}></TextInput>
-            <TextInput  placeholder="ccv" value={tarjeta.ccv}  keyboardType="number-pad" onChangeText={settarjeta}></TextInput>
-            
-            <Button title="Pagar" onPress={pagar}/>
+        <StyledViewInputs>
+            <StyledInput editable={false}>{user.addres}</StyledInput>
+            <StyledInput editable={false}>{user.country}</StyledInput>
+            <StyledInput editable={false}>{user.email}</StyledInput>
+            <StyledInput editable={false}>{user.name}</StyledInput>
+            <StyledInput editable={false}>{user.phone}</StyledInput>
+            <StyledContainerTotal>
+                <Text style={{fontSize: 24, fontWeight: "bold"}}>Total ${total}</Text>
+            </StyledContainerTotal>
+
+            <StyledTextTitle>Método de Pago</StyledTextTitle>
+
+            <StyledInput  placeholder="Numero de tarjeta" value={tarjeta.number} keyboardType="number-pad" onChangeText={settarjeta}/>
+            <StyledInput  placeholder="Nombre de tarjeta" value={tarjeta.name} keyboardType=""  onChangeText={settarjeta}/>
+            <StyledInput  placeholder="Mes/año" value={tarjeta.expiration}onChangeText={settarjeta}/>
+            <StyledInput  placeholder="ccv" value={tarjeta.ccv}  keyboardType="number-pad" onChangeText={settarjeta}/>
+            <Text style={{height: "5%"}}></Text>
+            <StyledButtons onPress={pagar}>
+                <StyledTextButton>Pagar</StyledTextButton>
+            </StyledButtons>
 
         
             
 
 
 
-        </View>
+        </StyledViewInputs>
     )
 }

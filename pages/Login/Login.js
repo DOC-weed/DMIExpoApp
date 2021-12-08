@@ -51,6 +51,7 @@ export default function Login() {
         value = {pwd}
         onChangeText = {(text) => setPwd(text)}
         secureTextEntry/>
+        <View style={{height: "2%"}}></View>
       <StyledButtons onPress = {handleLogin}>
         <StyledTextButton>Iniciar Sesion</StyledTextButton>
       </StyledButtons>

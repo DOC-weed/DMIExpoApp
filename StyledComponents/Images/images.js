@@ -22,9 +22,18 @@ export const StyledImageProduct2= styled.Image`
     width: 250px;
     height: 250px;
     padding:5px;
+    border-radius: 150px;
 `;
 export const StyledImagesingleProduct= styled.Image`
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     padding:5px;
+    border-radius: 25px;
+
+`;
+
+export const StyledImageAddProduct = styled.Image`
+    width: 200px;
+    height: 200px;
+    border-radius: 30px
 `;

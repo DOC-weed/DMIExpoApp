@@ -3,11 +3,15 @@ import { Text } from 'react-native';
 import { Image, SpeedDial } from 'react-native-elements';
 import { auth, db } from '../../firebase';
 import { useIsFocused } from "@react-navigation/native";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 import { StyledImageBanner, StyledImageProduct } from '../../StyledComponents/Images/images';
 import { StyledTextStore } from '../../StyledComponents/Text/text';
 import { StyledViewBanner, StyledViewStore, StyledViewStoreProducts, StyledViewStoreProductsCard } from '../../StyledComponents/Views/view';
+
+import { Card } from 'react-native-elements'
+import { StyledButtons, StyledButtonWatch } from '../../StyledComponents/Buttons/buttons';
 
 export default function Tienda({ navigation }) {
   const [open, setOpen] = useState(false);
@@ -69,18 +73,25 @@ export default function Tienda({ navigation }) {
         pagingEnabled={true}
       >
         {Object.values(productsList).map((data, index) =>
+          
           <StyledViewStoreProductsCard key={index}>
-            <Image style={{ width: '100%' }} source={data.image} />
+            <Card>
+              <Card.Title>{data.name}</Card.Title>
+              <Card.Divider/>
+              
+              <Card.Image style={{ width: '100%', height: 200 }} source={{uri:data.image}} />
+              <StyledButtonWatch onPress={() => navigation.navigate('Detalles', {
+                name: data.name,
+                code: data.code,
+                description: data.description,
+                image: data.image,
+                price: data.price,
+                stock: data.stock
+              })}>
+                <Ionicons  name={'eye-outline'} size= {30} color= {'white'} />  
+              </StyledButtonWatch>
 
-            <StyledImageProduct source={{ uri: data.image }} />
-            <StyledTextStore onPress={() => navigation.navigate('Detalles', {
-              name: data.name,
-              code: data.code,
-              description: data.description,
-              image: data.image,
-              price: data.price,
-              stock: data.stock
-            })}>{data.name}</StyledTextStore>
+            </Card>
           </StyledViewStoreProductsCard>
 
         )}

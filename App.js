@@ -94,20 +94,20 @@ function Tabs() {
         }
         return <Ionicons name={iconName} size={size} color={color} />;
       },
-      tabBarActiveTintColor: "#5F366E",
+      tabBarActiveTintColor: "#206175",
       tabBarInactiveTintColor: "gray",
     })}>
       <Tab.Screen name="Tienda" component={BuySettings}  options={{
         headerRight: () => (
           <TouchableOpacity style={{display:'flex',flexDirection:'row'}}>
             <TouchableOpacity>
-             <Ionicons onPress={moveToCart} name={'cart'} size= {40} color= {'black'} />
+             <Ionicons onPress={moveToCart} name={'cart-outline'} size= {40} color= {'black'} />
             </TouchableOpacity>
             <TouchableOpacity>
-             <Ionicons onPress={moveToOrders} name={'document-text'} size= {40} color= {'black'} />
+             <Ionicons onPress={moveToOrders} name={'document-text-outline'} size= {40} color= {'black'} />
             </TouchableOpacity>
             <TouchableOpacity>
-             <Ionicons onPress={handleSignOut} name={'log-out'} size= {40} color= {'red'} />
+             <Ionicons onPress={handleSignOut} name={'log-out-outline'} size= {40} color= {'red'} />
             </TouchableOpacity>
           </TouchableOpacity>
           
@@ -117,16 +117,9 @@ function Tabs() {
         headerRight: () => (
           <TouchableOpacity style={{display:'flex',flexDirection:'row'}}>
             <TouchableOpacity>
-             <Ionicons onPress={moveToCart} name={'cart'} size= {40} color= {'black'} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-             <Ionicons onPress={moveToOrders} name={'document-text'} size= {40} color= {'black'} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-             <Ionicons onPress={handleSignOut} name={'log-out'} size= {40} color= {'red'} />
+             <Ionicons onPress={handleSignOut} name={'log-out-outline'} size= {40} color= {'red'} />
             </TouchableOpacity>
           </TouchableOpacity>
-          
         ) }}/>
     </Tab.Navigator>
   );

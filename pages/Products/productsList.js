@@ -3,6 +3,10 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { StyledListItem, StyledTestListItem } from "../../styles/styledComponents";
 import { db, auth } from "../../firebase";
 import { useIsFocused } from "@react-navigation/native";
+import { StyledViewTitleText } from "../../StyledComponents/Views/view";
+import { StyledTextTitle } from "../../StyledComponents/Text/text";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 export default function ListProducts({ navigation }) {
     const [produts, setProducts] = React.useState({});
@@ -53,15 +57,24 @@ export default function ListProducts({ navigation }) {
 
     return (
         <View>
-            <Text>Products list</Text>
+            <StyledViewTitleText style= {{justifyContent: "center", alignItems: "center"}}>
+                <StyledTextTitle >Products List</StyledTextTitle>
+            </StyledViewTitleText>
+
             <ScrollView>
                 {
                     Object.values(produts).map((i, index) =>
                         <StyledListItem key={index}>
                             <StyledTestListItem >{i.code}</StyledTestListItem>
                             <StyledTestListItem >{i.name}</StyledTestListItem>
-                            <TouchableOpacity onPress={() => __edit(i.code)}><Text>Editar</Text></TouchableOpacity>
-                            <TouchableOpacity onPress={() => __produtoDelete(i.code)}><Text>Eliminar</Text></TouchableOpacity>
+                            <View style={{flexDirection: "row"}}>
+                                <TouchableOpacity onPress={() => __edit(i.code)}>
+                                    <Ionicons  name={'create'} size= {28} color= {'blue'} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => __produtoDelete(i.code)}>
+                                    <Ionicons  name={'trash'} size= {28} color= {'red'} />
+                                </TouchableOpacity>
+                            </View>
                         </StyledListItem>
                     )
                 }
