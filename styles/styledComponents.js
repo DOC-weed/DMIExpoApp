@@ -11,7 +11,9 @@ export const StyledTitleText = styled.Text`
 export const StyledViewContainer = styled.View`
     width: 100%;
     flex: 1;
-    background-color: #F1DCF7;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
 `;
 
 export const StyledContainerImage = styled.View`
@@ -40,6 +42,7 @@ export const StyledTextButton = styled.Text`
     color: white;
     font-size: 20px;
     text-align: center;
+    font-weight: bold;
 `;
 
 export const StyledContainerCamera = styled.View`
@@ -140,23 +143,30 @@ export const StyledInputsSmall = styled.TextInput`
 export const StyledButtonSave = styled.TouchableOpacity`
     padding: 12px;
     background: blue;
-    width: 100px;
-    margin: 10px auto;
+    width: 150px;
+    margin-left: 6%;
+    border-radius: 10px;
 `;
 
 export const StyledButtonCancel = styled.TouchableOpacity`
     padding: 12px;
     background: red;
-    width: 100px;
-    margin: auto;
+    width: 150px;
+    margin-right: 6%;
+    border-radius:10px ;
+    
 `;
 
 export const StyledListItem = styled.View`
-    border: 1px solid black;
     flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom-width: 3px;
 `;
 
 export const StyledTestListItem = styled.Text`
     font-size: 20px;
-    margin: auto;
+`;
+export const StyledTextButtonItem = styled.Text`
+    font-size: 20px;
 `;

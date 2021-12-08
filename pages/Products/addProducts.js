@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TextInput, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { StyledInput, StyledInputsSmall, StyledViewContainer, StyledButtonBack, StyledTextButton, StyledContainerCamera, StyledTitleText, StyledButtonSave, StyledButtonCancel } from "../../styles/styledComponents";
-import { SpeedDial } from 'react-native-elements';
-import CameraComponent from "../../components/camera";
-import { useIsFocused } from "@react-navigation/native";
-import { Camera } from "expo-camera";
-import * as ImagePicker from "expo-image-picker";
 import { storage, db, auth } from "../../firebase"
+import { useIsFocused } from "@react-navigation/native";
+
+import CameraComponent from "../../components/camera";
+import * as ImagePicker from "expo-image-picker";
+import { Camera } from "expo-camera";
+
+import { SpeedDial } from 'react-native-elements';
+import { Text, View, Image, ScrollView} from 'react-native';
+import { StyledViewContainer, StyledButtonBack, StyledTextButton, StyledContainerCamera, StyledButtonSave, StyledButtonCancel } from "../../styles/styledComponents";
+import { StyledInput } from '../../StyledComponents/Inputs/inputs'; 
+import {StyledViewImageAddProduct, StyledViewInputs, StyledViewInputsRow, StyledViewButtonAction} from '../../StyledComponents/Views/view';
+import { StyledImageAddProduct } from '../../StyledComponents/Images/images';
 
 export default function AddProducts() {
     const [startCamera, setStartCamera] = useState(false);
@@ -135,66 +140,71 @@ export default function AddProducts() {
 
                     (<StyledViewContainer>
                         <ScrollView style={{ width: '100%', height: '100%' }}>
-                            <StyledInputsSmall
-                                onChangeText={setCode}
-                                value={code}
-                                placeholder="Product Code"
-                            />
-                            <StyledInput
-                                onChangeText={setName}
-                                value={name}
-                                placeholder="Name"
-                            />
-                            <StyledInput
-                                onChangeText={setDescription}
-                                value={description}
-                                placeholder="Description"
-                                multiline
-                                numberOfLines={4}
-                            />
-                            <View style={{ flexDirection: 'row' }}>
-                                <StyledInputsSmall
-                                    onChangeText={setPrice}
-                                    value={price}
-                                    placeholder="Price"
-                                    keyboardType="decimal-pad"
+                            <StyledViewInputs>
+                                <StyledInput
+                                    onChangeText={setCode}
+                                    value={code}
+                                    placeholder="Product Code"
                                 />
-                                <StyledInputsSmall
-                                    onChangeText={setStock}
-                                    value={stock}
-                                    placeholder="Stock"
-                                    keyboardType="decimal-pad"
+                                <StyledInput
+                                    onChangeText={setName}
+                                    value={name}
+                                    placeholder="Name"
                                 />
-                            </View>
-                            <View style={{ margin: 'auto', alignItems: 'center' }}>
-                                <Image source={{ uri: photo }} style={{ width: 200, height: 200 }} />
-                                <SpeedDial
-                                    isOpen={open}
-                                    icon={{ name: 'camera', color: '#fff' }}
-                                    openIcon={{ name: 'close', color: '#fff' }}
-                                    onOpen={() => setOpen(!open)}
-                                    overlayColor={"none"}
-                                    onClose={() => setOpen(!open)}
-                                >
-                                    <SpeedDial.Action
+                                <StyledInput
+                                    onChangeText={setDescription}
+                                    value={description}
+                                    placeholder="Description"
+                                    // multiline
+                                    // numberOfLines={4}
+                                />
+                                <StyledViewInputsRow >
+                                    <StyledInput
+                                        onChangeText={setPrice}
+                                        value={price}
+                                        placeholder="Price"
+                                        keyboardType="decimal-pad"
+                                    />
+                                    <StyledInput
+                                        onChangeText={setStock}
+                                        value={stock}
+                                        placeholder="Stock"
+                                        keyboardType="decimal-pad"
+                                    />
+                                </StyledViewInputsRow>
+                                <StyledViewImageAddProduct>
+                                    <StyledImageAddProduct source={{ uri: photo }} />
+                                    <SpeedDial
+                                        isOpen={open}
                                         icon={{ name: 'camera', color: '#fff' }}
-                                        title="Take photo"
-                                        onPress={__startCamera}
-                                    />
-                                    <SpeedDial.Action
-                                        icon={{ name: 'photo', color: '#fff' }}
-                                        title="Gallery"
-                                        onPress={pickImage}
-                                    />
-                                </SpeedDial>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <StyledButtonCancel onPress={__clear}><StyledTextButton>Clear</StyledTextButton></StyledButtonCancel>
-                                <StyledButtonSave onPress={__saveData}><StyledTextButton>Save</StyledTextButton></StyledButtonSave>
-                            </View>
+                                        openIcon={{ name: 'close', color: '#fff' }}
+                                        onOpen={() => setOpen(!open)}
+                                        overlayColor={"none"}
+                                        onClose={() => setOpen(!open)}
+                                    >
+                                        <SpeedDial.Action
+                                            icon={{ name: 'camera', color: '#fff' }}
+                                            title="Take photo"
+                                            onPress={__startCamera}
+                                        />
+                                        <SpeedDial.Action
+                                            icon={{ name: 'photo', color: '#fff' }}
+                                            title="Gallery"
+                                            onPress={pickImage}
+                                        />
+                                    </SpeedDial>
+                                </StyledViewImageAddProduct>
+
+                                <StyledViewButtonAction >
+                                    <StyledButtonCancel><StyledTextButton>Clear</StyledTextButton></StyledButtonCancel>
+                                    <StyledButtonSave onPress={__saveData}><StyledTextButton>Save</StyledTextButton></StyledButtonSave>
+                                </StyledViewButtonAction>
+                                
+                            </StyledViewInputs>
+
                         </ScrollView>
                     </StyledViewContainer>)
-                    :
+                        :
                     (<StyledContainerCamera>
 
                         < CameraComponent

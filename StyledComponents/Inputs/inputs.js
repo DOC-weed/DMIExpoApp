@@ -16,8 +16,10 @@ export const StyledInputNumber = styled.TextInput`
     color: gray;
     background-color: white;
     border-radius: 15px;
-    margin: 4px;
+    
     padding-left: 15px;
-    width: 70%;
+    width: 65%;
     height: 45px;
+    margin-bottom: 10px;
 `;
+

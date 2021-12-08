@@ -1,8 +1,12 @@
 import React, {useEffect} from 'react';
-import { ScrollView, Text, View,Button,Alert } from 'react-native';
+import { ScrollView, Text, View,Button,Alert, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native-elements';
 import { auth, db } from '../../firebase';
 import { StyledImagesingleProduct } from '../../StyledComponents/Images/images';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { StyledContainerButtonCart, StyledContainerCart, StyledContainerInfoCart, StyledContainerTotal, StyledViewTitleText } from '../../StyledComponents/Views/view';
+import { StyledButtonDeleteCart } from '../../StyledComponents/Buttons/buttons';
+import { StyledTextItemCart, StyledTextTitle } from '../../StyledComponents/Text/text';
 
 
 export default function Cart({navigation}){
@@ -93,27 +97,28 @@ export default function Cart({navigation}){
     }
     return(
         <View>
-            {(check)?<Text style={{color:'black'}}>Carrito vacio</Text>:null}
+            {(check)?<StyledViewTitleText><StyledTextTitle style={{color:'black'}}>Carrito vacio</StyledTextTitle></StyledViewTitleText>:null}
 
-        <ScrollView style={{width:'100%'}}>
+        <ScrollView style={{width:"100%"}}>
             {Object.values(cart).map((data,index)=>
-                <View style={{display:'flex',width:'100%',flexDirection:"row",padding:20,alignContent:'center'}} key={index}>
+                <StyledContainerCart  key={index}>
                     <StyledImagesingleProduct source={{uri:data.image}}/>
-                    <View style={{display:'flex'}}>
-                    <Text>Nombre:{data.name}</Text>
-                    <Text>Cantidad:{data.cantidad}</Text>
-                    <Text>Precio:${data.price}</Text>
-                    <Text>Subtotal:{(parseInt(data.cantidad)*parseInt(data.price))}</Text>
-                    </View>
-                    <Button style={{color:'black'}} color="red" onPress={deleteProduct(data.code)} title="Quitar"/>
-                   
-
-                </View>
+                    <StyledContainerInfoCart >
+                        <StyledTextItemCart>Nombre:{data.name}</StyledTextItemCart>
+                        <StyledTextItemCart>Cantidad:{data.cantidad}</StyledTextItemCart>
+                        <StyledTextItemCart>Precio:${data.price}</StyledTextItemCart>
+                        <StyledTextItemCart>Subtotal:{(parseInt(data.cantidad)*parseInt(data.price))}</StyledTextItemCart>
+                    </StyledContainerInfoCart>
+                    <StyledContainerButtonCart >
+                        <StyledButtonDeleteCart onPress = {deleteProduct(data.code)}>
+                            <Ionicons  name={'trash'} size= {28} color= {'red'} />  
+                        </StyledButtonDeleteCart>
+                    </StyledContainerButtonCart>
+                </StyledContainerCart>
             )}
-            
         </ScrollView>
 
-        {(check)?null:<Text style={{color:'black'}}>Total:{total}</Text>}
+        {(check)?null:<StyledContainerTotal><Text style={{color:'black', fontSize: 24}}>Total:{total}</Text></StyledContainerTotal>}
         {(check)?null:<Button style={{color:'black'}} color="red" onPress={deleteCart} title="Borrar Carrtio"/>}
         {(check)?null:<Button style={{color:'black'}}  onPress={goCheckOut} title="Finalizar Compra"/>}
 

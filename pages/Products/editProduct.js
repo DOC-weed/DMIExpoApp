@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TextInput, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { StyledInput, StyledInputsSmall, StyledViewContainer, StyledButtonBack, StyledTextButton, StyledContainerCamera, StyledTitleText, StyledButtonSave, StyledButtonCancel } from "../../styles/styledComponents";
+import { StyledInputsSmall, StyledViewContainer, StyledButtonBack, StyledTextButton, StyledContainerCamera, StyledTitleText, StyledButtonSave, StyledButtonCancel } from "../../styles/styledComponents";
 import { SpeedDial } from 'react-native-elements';
 import CameraComponent from "../../components/camera";
 import { useIsFocused } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { storage, db, auth } from "../../firebase"
+
+import { StyledViewButtonAction, StyledViewImageAddProduct, StyledViewInputs, StyledViewInputsRow } from '../../StyledComponents/Views/view';
+import { StyledInput } from '../../StyledComponents/Inputs/inputs';
+import { StyledImageAddProduct } from '../../StyledComponents/Images/images';
 
 export default function EditProducts({ route, navigation }) {
     const [startCamera, setStartCamera] = useState(false);
@@ -153,47 +157,49 @@ export default function EditProducts({ route, navigation }) {
 
                     (<StyledViewContainer>
                         <ScrollView style={{ width: '100%', height: '100%' }}>
-                            <StyledInputsSmall
+                            <StyledViewInputs>
+                                <StyledInput
                                 onChangeText={setCode}
                                 value={code}
                                 placeholder="Product Code"
-                            />
-                            <StyledInput
+                                />
+                                <StyledInput
                                 onChangeText={setName}
                                 value={name}
                                 placeholder="Name"
-                            />
-                            <StyledInput
+                                />
+                                <StyledInput
                                 onChangeText={setDescription}
                                 value={description}
                                 placeholder="Description"
                                 multiline
                                 numberOfLines={4}
-                            />
-                            <View style={{ flexDirection: 'row' }}>
-                                <StyledInputsSmall
+                                />
+                                <StyledViewInputsRow>
+                                    <StyledInput
                                     onChangeText={setPrice}
                                     value={price}
                                     placeholder="Price"
                                     keyboardType="decimal-pad"
-                                />
-                                <StyledInputsSmall
+                                    />
+                                    <StyledInput
                                     onChangeText={setStock}
                                     value={stock}
                                     placeholder="Stock"
                                     keyboardType="decimal-pad"
-                                />
-                            </View>
-                            <View style={{ margin: 'auto', alignItems: 'center' }}>
-                                <Image source={{ uri: photo }} style={{ width: 200, height: 200 }} />
-                                <SpeedDial
-                                    isOpen={open}
-                                    icon={{ name: 'camera', color: '#fff' }}
-                                    openIcon={{ name: 'close', color: '#fff' }}
-                                    onOpen={() => setOpen(!open)}
-                                    overlayColor={"none"}
-                                    onClose={() => setOpen(!open)}
-                                >
+                                    />
+                                </StyledViewInputsRow>
+
+                                <StyledViewImageAddProduct style={{ margin: 'auto', alignItems: 'center' }}>
+                                    <StyledImageAddProduct source={{ uri: photo }} style={{ width: 200, height: 200 }} />
+                                    <SpeedDial
+                                        isOpen={open}
+                                        icon={{ name: 'camera', color: '#fff' }}
+                                        openIcon={{ name: 'close', color: '#fff' }}
+                                        onOpen={() => setOpen(!open)}
+                                        overlayColor={"none"}
+                                        onClose={() => setOpen(!open)}
+                                    >
                                     <SpeedDial.Action
                                         icon={{ name: 'camera', color: '#fff' }}
                                         title="Take photo"
@@ -205,11 +211,14 @@ export default function EditProducts({ route, navigation }) {
                                         onPress={pickImage}
                                     />
                                 </SpeedDial>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
+                            </StyledViewImageAddProduct>
+                            <StyledViewButtonAction >
                                 <StyledButtonCancel onPress={() => navigation.goBack()}><StyledTextButton>Cancel</StyledTextButton></StyledButtonCancel>
                                 <StyledButtonSave onPress={__saveData}><StyledTextButton>Save</StyledTextButton></StyledButtonSave>
-                            </View>
+                            </StyledViewButtonAction>
+
+                            </StyledViewInputs>
+
                         </ScrollView>
                     </StyledViewContainer>)
                     :

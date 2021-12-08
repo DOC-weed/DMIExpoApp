@@ -1,10 +1,11 @@
 import React,{useEffect} from 'react';
-import { Text,Button,Alert } from 'react-native';
+import { Text,Button,Alert, View } from 'react-native';
 import { db,auth } from '../../firebase';
+import { StyledButtonNoneColor, StyledButtons } from '../../StyledComponents/Buttons/buttons';
 import { StyledImageProduct2 } from '../../StyledComponents/Images/images';
 import { StyledInputNumber } from '../../StyledComponents/Inputs/inputs';
-import { StyledTextStore } from '../../StyledComponents/Text/text';
-import { StyledViewStore2 } from '../../StyledComponents/Views/view';
+import { StyledTextButton, StyledTextButtonColor, StyledTextStore } from '../../StyledComponents/Text/text';
+import { StyledViewStore2, StyledViewTextDetails } from '../../StyledComponents/Views/view';
 
 
 export default function SingleProduct({ route, navigation }){
@@ -51,13 +52,20 @@ export default function SingleProduct({ route, navigation }){
     return(
         <StyledViewStore2>
             <StyledImageProduct2 source={{uri:image}}/>
-            <StyledTextStore>Nombre:{name}</StyledTextStore>
-            <StyledTextStore>Descripción:{description}</StyledTextStore>
-            <StyledTextStore>Pecio: ${price}</StyledTextStore>
-            <StyledInputNumber placeholder={'Disponibles '+stock} keyboardType="numeric"
-                value={cantidad} onChangeText={setcantidad} />
-                <Button title="Agregar al Carrito" onPress={addToCart}/>
-                <Button title="Ver Carrito" onPress={goToCart}/>
+            <StyledViewTextDetails>
+                <StyledTextStore>Nombre:{name}</StyledTextStore>
+                <StyledTextStore>Descripción:{description}</StyledTextStore>
+                <StyledTextStore>Pecio: ${price}</StyledTextStore>
+            </StyledViewTextDetails>
+
+            <StyledInputNumber placeholder={'Disponibles '+stock} keyboardType="numeric" value={cantidad} onChangeText={setcantidad} />
+
+            <StyledButtons onPress={addToCart}>
+                <StyledTextButton>Agregar al carrito</StyledTextButton>
+            </StyledButtons>
+            <StyledButtonNoneColor  onPress={goToCart}>
+                <StyledTextButtonColor>Ir al carrito</StyledTextButtonColor>
+            </StyledButtonNoneColor>
         </StyledViewStore2>
     )
 }

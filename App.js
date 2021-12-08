@@ -98,13 +98,14 @@ function Tabs() {
         }
         return <Ionicons name={iconName} size={size} color={color} />;
       },
-      tabBarActiveTintColor: "#5F366E",
+      tabBarActiveTintColor: "#206175",
       tabBarInactiveTintColor: "gray",
     })}>
       <Tab.Screen name="Tienda" component={BuySettings} options={{
         headerRight: () => (
           <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
             <TouchableOpacity>
+<<<<<<< HEAD
               <Ionicons onPress={moveToHome} name={'home'} size={40} color={'black'} />
             </TouchableOpacity>
             <TouchableOpacity>
@@ -115,6 +116,15 @@ function Tabs() {
             </TouchableOpacity>
             <TouchableOpacity>
               <Ionicons onPress={handleSignOut} name={'log-out'} size={40} color={'red'} />
+=======
+             <Ionicons onPress={moveToCart} name={'cart-outline'} size= {40} color= {'black'} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+             <Ionicons onPress={moveToOrders} name={'document-text-outline'} size= {40} color= {'black'} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+             <Ionicons onPress={handleSignOut} name={'log-out-outline'} size= {40} color= {'red'} />
+>>>>>>> Jonathan
             </TouchableOpacity>
           </TouchableOpacity>
 
@@ -125,12 +135,19 @@ function Tabs() {
         headerRight: () => (
           <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
             <TouchableOpacity>
+<<<<<<< HEAD
               <Ionicons onPress={handleSignOut} name={'log-out'} size={40} color={'red'} />
             </TouchableOpacity>
           </TouchableOpacity>
 
         )
       }} />
+=======
+             <Ionicons onPress={handleSignOut} name={'log-out-outline'} size= {40} color= {'red'} />
+            </TouchableOpacity>
+          </TouchableOpacity>
+        ) }}/>
+>>>>>>> Jonathan
     </Tab.Navigator>
   );
 }

@@ -22,3 +22,13 @@ export const StyledTextStore = styled.Text`
     font-size:30px;
     text-align:center;
 `;
+
+export const StyledTextTitle = styled.Text`
+    font-weight: bold;
+    font-size: 30px;
+    
+`;
+
+export const StyledTextItemCart = styled.Text`
+    font-size: 18px;
+`;
